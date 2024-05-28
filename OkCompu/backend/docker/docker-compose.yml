@@ -1,0 +1,13 @@
+version: '3.9'
+services:
+  postgres:
+    container_name: postgres
+    image: postgres:16.3-alpine
+    ports:
+      - 5432:5432
+    volumes:
+      - /apps/postgres:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=ehuacachi
+      - POSTGRES_USER=ehuacachi
+      - POSTGRES_DB=okcompu

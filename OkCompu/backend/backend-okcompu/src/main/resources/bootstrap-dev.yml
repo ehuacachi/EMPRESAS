@@ -1,0 +1,17 @@
+server:
+  port: ${CUSTOM.SERVER.PORT:8085}
+
+spring:
+  application:
+    name: backend-okcompu
+
+  datasource:
+    url:  jdbc:postgresql://localhost:5432/okcompu
+    username: ehuacachi
+    password: ehuacachi
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    sql-show: true
+    database-platform: org.hibernate.dialect.PostgreSQLDialect

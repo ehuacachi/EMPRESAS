@@ -1,0 +1,12 @@
+  .oooooo.   oooo    oooo .o.      .oooooo.     .oooooo.   ooo        ooooo ooooooooo.   ooooo     ooo 
+ d8P'  `Y8b  `888   .8P'  888     d8P'  `Y8b   d8P'  `Y8b  `88.       .888' `888   `Y88. `888'     `8' 
+888      888  888  d8'    888    888          888      888  888b     d'888   888   .d88'  888       8  
+888      888  88888[      Y8P    888          888      888  8 Y88. .P  888   888ooo88P'   888       8  
+888      888  888`88b.    `8'    888          888      888  8  `888'   888   888          888       8  
+`88b    d88'  888  `88b.  .o.    `88b    ooo  `88b    d88'  8    Y     888   888          `88.    .8'  
+ `Y8bood8P'  o888o  o888o Y8P     `Y8bood8P'   `Y8bood8P'  o8o        o888o o888o           `YbodP'    
+                                                                    
+${application.title} ${application.version}
+Powered by ${application.author}
+
+-- https://devops.datenkollektiv.de/banner.txt/index.html
