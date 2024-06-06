@@ -2,3 +2,6 @@ application:
   title: @project.name@
   version: @project.version@
   author: Ing. Elvis Huacachi
+
+descripcion:
+  size: Descripcion debe tener minimo 3 caracteres.

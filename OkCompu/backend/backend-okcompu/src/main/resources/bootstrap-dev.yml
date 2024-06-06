@@ -15,3 +15,7 @@ spring:
       ddl-auto: update
     sql-show: true
     database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+#categoria:
+#  controller:
+#    path: Hola Elvis Huacachi

@@ -23,7 +23,7 @@ public class Categoria {
     @Column(unique = true)
     private String descripcion;
 
-    private byte estado;
+    private Byte estado;
     @PrePersist
     public void prePersist() {
         this.estado = 1;

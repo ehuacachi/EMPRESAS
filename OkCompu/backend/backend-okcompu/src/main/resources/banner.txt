@@ -6,7 +6,7 @@
 `88b    d88'  888  `88b.  .o.    `88b    ooo  `88b    d88'  8    Y     888   888          `88.    .8'  
  `Y8bood8P'  o888o  o888o Y8P     `Y8bood8P'   `Y8bood8P'  o8o        o888o o888o           `YbodP'    
                                                                     
-${application.title} ${application.version}
+${application.title} ${application.version}       Ejemplo --> ${descripcion.size}
 Powered by ${application.author}
 
 -- https://devops.datenkollektiv.de/banner.txt/index.html
