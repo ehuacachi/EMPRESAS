@@ -21,13 +21,8 @@ public class Igv {
     @EqualsAndHashCode.Include
     private Long idIgv;
 
+    private String actividad;
     private Double valor;
     private LocalDateTime igvFecha;
     private Byte estado;
-
-    @PrePersist
-    public void prePersist() {
-        this.estado = 1;
-    }
-
 }

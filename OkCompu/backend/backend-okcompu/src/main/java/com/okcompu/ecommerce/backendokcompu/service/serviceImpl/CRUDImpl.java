@@ -47,7 +47,6 @@ public abstract class CRUDImpl<T, ID> implements CRUD<T, ID> {
     }
 
     @Override
-
     public void delete(ID id) {
         getRepo().findById(id).orElseThrow(() -> new ModelNotFoundException("ID NOT FOUND: " + id));
         getRepo().deleteById(id);

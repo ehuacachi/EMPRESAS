@@ -22,9 +22,6 @@ public class FormaPago {
     private String nombre;
 
     private Byte estado;
-    @PrePersist
-    public void prePersist() {
-        this.estado = 1;
-    }
+
 }
 

@@ -22,12 +22,4 @@ public class Comprobante {
     private String descripcion;
 
     private String abreviatura;
-
-    private Byte estado;
-
-    @PrePersist
-    public void prePresist() {
-        this.estado = 1;
-    }
-
 }

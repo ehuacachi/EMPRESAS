@@ -19,7 +19,6 @@ public class Telefono {
     @EqualsAndHashCode.Include
     private Long idTelefono;
 
-    @Column(unique = true)
     private String numero;
 
     @ManyToOne

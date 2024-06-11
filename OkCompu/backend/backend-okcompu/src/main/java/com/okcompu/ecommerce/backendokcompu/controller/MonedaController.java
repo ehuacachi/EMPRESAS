@@ -6,10 +6,9 @@ import com.okcompu.ecommerce.backendokcompu.service.MonedaService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.hateoas.EntityModel;
-import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -18,28 +17,13 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequiredArgsConstructor
 @RequestMapping("/monedas")
+@RequiredArgsConstructor
 public class MonedaController {
 
     private final MonedaService monedaService;
+    @Qualifier("defaultMapper")
     private final ModelMapper mapper;
-
-//    EJEMPLO DE COMUNICACION DE VARIABLES
-//    @Value("${moneda.controller.path}")
-//    private String pathUrl;
-
-//    @GetMapping
-//    public ResponseEntity<List<MonedaDTO>> findAll() {
-//        List<MonedaDTO> monedas = monedaService.findAll().stream().map(cat -> new MonedaDTO(cat.getIdMoneda(), cat.getDescripcion(), cat.getEstado())).toList();
-//        return ResponseEntity.ok(monedas);
-//    }
-
-//    @GetMapping
-//    public ResponseEntity<List<MonedaRecordDTO>> findAll() {
-//        List<MonedaRecordDTO> monedas = monedaService.findAll().stream().map(cat -> new MonedaRecordDTO(cat.getIdMoneda(), cat.getDescripcion(), cat.getEstado())).toList();
-//        return ResponseEntity.ok(monedas);
-//    }
 
     @GetMapping
     public ResponseEntity<List<MonedaDTO>> findAll() {
@@ -73,20 +57,6 @@ public class MonedaController {
     public ResponseEntity<Void> delete(@PathVariable Long id){
         monedaService.delete(id);
         return ResponseEntity.noContent().build();
-    }
-
-    @GetMapping("/hateoas/{id}")
-    public EntityModel<MonedaDTO> findByIdHateoas(@PathVariable Long id) {
-        EntityModel<MonedaDTO> resource = EntityModel.of(converDTO(monedaService.findById(id)));
-
-//        GENERAR LINK INFORMATIVOS
-        WebMvcLinkBuilder link = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).findById(id));
-        WebMvcLinkBuilder link2 = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).findAll());
-
-        resource.add(link.withRel("Moneda por Id"));
-        resource.add(link2.withRel("Listado de Monedas"));
-        
-        return resource;
     }
 
     private Moneda convertEntity(MonedaDTO dto) {

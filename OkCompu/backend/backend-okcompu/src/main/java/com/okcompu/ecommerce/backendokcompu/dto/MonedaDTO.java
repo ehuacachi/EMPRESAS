@@ -1,6 +1,7 @@
 package com.okcompu.ecommerce.backendokcompu.dto;
 
 import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,8 +23,4 @@ public class MonedaDTO {
 
     private Byte estado;
 
-    @PrePersist
-    public void prePersist() {
-        this.estado = 1;
-    }
 }

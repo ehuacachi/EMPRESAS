@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 @RestControllerAdvice   //Para intercetar las excepciones y exponerlas como un servicio REST.
 public class ResponseExceptionHandler extends ResponseEntityExceptionHandler { //Clase para interceptar las excepciones
 
-    @ExceptionHandler(Exception.class)  //Al parde de las excepciones, si alguna de las excepciones no logra resolver, es ahi donde se activa el handlerAllException.
+    @ExceptionHandler(Exception.class)  //Si alguna de las excepciones no logra resolver, es ahi donde se activa el handlerAllException.
     public ResponseEntity<CustomErrorResponse> handlerAllException(Exception ex, WebRequest request) {
         //false --> obtenemos el error de manera abreviada.
         CustomErrorResponse err = new CustomErrorResponse(LocalDateTime.now(), ex.getMessage(), request.getDescription(false));

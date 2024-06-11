@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Table(name = "almacenes")
 @Data
@@ -18,6 +20,12 @@ public class Almacen {
     @EqualsAndHashCode.Include
     private Long idAlmacen;
     private String descripcion;
+
+    @OneToMany(mappedBy = "almacen", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Telefono> telefonos;
+
+    @OneToMany(mappedBy = "almacen", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Domicilio> domicilios;
 
 
 }

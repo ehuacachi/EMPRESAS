@@ -25,9 +25,5 @@ public class Marca {
 
     private Byte estado;
 
-    @PrePersist
-    public void prePersist() {
-        this.estado = 1;
-    }
 
 }

@@ -12,8 +12,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = true)
-public class Producto extends Base{
+@EqualsAndHashCode(onlyExplicitlyIncluded = true) //, callSuper = true
+public class Producto { //extends Base
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,6 +21,8 @@ public class Producto extends Base{
     private Long idProducto;
 
     private String descripcion;
+
+    private String modelo;
 
     private String code;
 
@@ -48,8 +50,4 @@ public class Producto extends Base{
     @JoinColumn(name = "id_categoria", nullable = false, foreignKey = @ForeignKey(name = "FK_PRODUCTO_CATEGORIA"))
     private Categoria categoria;
 
-    @PrePersist
-    public void prePersist() {
-        this.estado = 1;
-    }
 }

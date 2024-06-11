@@ -24,15 +24,5 @@ public class Categoria {
     private String descripcion;
 
     private Byte estado;
-    @PrePersist
-    public void prePersist() {
-        this.estado = 1;
-    }
-
-    @PreUpdate
-    public void preUpdate() {
-        this.estado = 1;
-    }
-
 
 }

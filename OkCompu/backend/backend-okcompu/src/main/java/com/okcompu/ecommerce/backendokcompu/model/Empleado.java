@@ -16,8 +16,8 @@ import java.util.List;
 @Table(name = "empleados")
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = true)
-public class Empleado extends Base {
+@EqualsAndHashCode(onlyExplicitlyIncluded = true) //, callSuper = true
+public class Empleado { //extends Base
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
@@ -33,16 +33,18 @@ public class Empleado extends Base {
     @Column(name = "nro_documento")
     private String nroDocumento;
 
-    @Column(nullable = false, unique = true)
+    @Column(unique = true)
     private String username;
 
     private String password;
 
-    @Column(nullable = false, unique = true)
+    @Column(unique = true)
     private String email;
 
     @Enumerated(EnumType.STRING)
     private UserType userType;
+
+    private String foto;
 
     private Byte estado;
 
@@ -53,8 +55,10 @@ public class Empleado extends Base {
     )
     private List<Rol> roles;
 
-    @PrePersist
-    public void prePersist() {
-        this.estado = 1;
-    }
+    @OneToMany(mappedBy = "empleado", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Telefono> telefonos;
+
+    @OneToMany(mappedBy = "empleado", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Domicilio> domicilios;
+
 }

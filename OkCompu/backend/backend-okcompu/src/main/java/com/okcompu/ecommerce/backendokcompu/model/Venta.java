@@ -15,8 +15,8 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = true)
-public class Venta extends Base{
+@EqualsAndHashCode(onlyExplicitlyIncluded = true) //, callSuper = true
+public class Venta { //extends Base
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,6 +30,10 @@ public class Venta extends Base{
     @ManyToOne
     @JoinColumn(name = "id_empleado", nullable = false, foreignKey = @ForeignKey(name = "FK_VENTA_EMPLEADO"))
     private Empleado empleado;
+
+    @ManyToOne
+    @JoinColumn(name = "id_almacen", nullable = false, foreignKey = @ForeignKey(name = "FK_VENTA_ALMACEN"))
+    private Almacen almacen;
 
     @ManyToOne
     @JoinColumn(name = "id_cliente", nullable = false, foreignKey = @ForeignKey(name = "FK_VENTA_CLIENTE"))

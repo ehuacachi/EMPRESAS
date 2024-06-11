@@ -12,8 +12,8 @@ import java.util.List;
 @Entity
 @Table(name="clientes")
 @Data
-@EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = true)
-public class Cliente extends Base {
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)  //, callSuper = true
+public class Cliente  { //extends Base
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,15 +31,16 @@ public class Cliente extends Base {
 
     private String nroDocumento;
 
-    @Column(nullable = false, unique = true)
+    @Column(unique = true)
     private String email;
 
     private String foto;
 
-    private byte estado;
+    private Byte estado;
 
-    @PrePersist
-    public void prePresist() {
-        this.estado = 1;
-    }
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Telefono> telefonos;
+
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Domicilio> domicilios;
 }

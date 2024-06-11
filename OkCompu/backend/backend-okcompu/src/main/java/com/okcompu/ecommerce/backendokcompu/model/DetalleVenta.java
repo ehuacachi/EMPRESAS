@@ -18,7 +18,7 @@ public class DetalleVenta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
-    private Long idDetalle;
+    private Long idDetalleVenta;
 
     @ManyToOne
     @JoinColumn(name = "id_producto", nullable = false, foreignKey = @ForeignKey(name = "FK_DETALLEVENTA_PRODUCTO"))
@@ -30,7 +30,6 @@ public class DetalleVenta {
 
     private Double descuento;
 
-    @Column(name = "sub_total")
     private Double subTotal;
 
     @ManyToOne

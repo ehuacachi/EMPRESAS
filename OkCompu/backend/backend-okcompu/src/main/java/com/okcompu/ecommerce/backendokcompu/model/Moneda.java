@@ -25,6 +25,5 @@ public class Moneda {
 
     private Byte estado;
 
-
 }
 

@@ -1,13 +1,12 @@
 package com.okcompu.ecommerce.backendokcompu.controller;
 
 import com.okcompu.ecommerce.backendokcompu.dto.CategoriaDTO;
-import com.okcompu.ecommerce.backendokcompu.dto.CategoriaRecordDTO;
 import com.okcompu.ecommerce.backendokcompu.model.Categoria;
 import com.okcompu.ecommerce.backendokcompu.service.CategoriaService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.hateoas.EntityModel;
@@ -25,6 +24,7 @@ import java.util.List;
 public class CategoriaController {
 
     private final CategoriaService categoriaService;
+    @Qualifier("defaultMapper")
     private final ModelMapper mapper;
 
 //    EJEMPLO DE COMUNICACION DE VARIABLES

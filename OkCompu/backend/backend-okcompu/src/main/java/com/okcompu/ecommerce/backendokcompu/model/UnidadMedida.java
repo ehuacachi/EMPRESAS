@@ -25,9 +25,4 @@ public class UnidadMedida {
 
     private Byte estado;
 
-    @PrePersist
-    public void prePersist() {
-        this.estado = 1;
-    }
-
 }

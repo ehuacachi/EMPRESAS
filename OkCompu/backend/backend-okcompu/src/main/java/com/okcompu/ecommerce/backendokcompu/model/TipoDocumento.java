@@ -6,18 +6,18 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+@Entity
+@Table(name = "tipo_documentos")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name = "tipo_documentos")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class TipoDocumento {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
-    private Long idTipodocumento;
+    private Long idTipoDocumento;
 
     @Column(unique = true)
     private String descripcion;
