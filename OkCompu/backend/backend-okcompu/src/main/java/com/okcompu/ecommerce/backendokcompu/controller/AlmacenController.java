@@ -20,6 +20,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/almacenes")
 @RequiredArgsConstructor
+//@CrossOrigin(origins = "*")
 public class AlmacenController {
 
     private final AlmacenService almacenService;

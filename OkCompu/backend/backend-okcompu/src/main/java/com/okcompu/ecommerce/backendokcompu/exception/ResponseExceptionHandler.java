@@ -1,12 +1,14 @@
 package com.okcompu.ecommerce.backendokcompu.exception;
 
 import org.springframework.http.*;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import java.net.URI;
 import java.time.LocalDateTime;
@@ -42,6 +44,19 @@ public class ResponseExceptionHandler extends ResponseEntityExceptionHandler { /
                 .stream().map(err -> err.getField().concat(": ").concat(err.getDefaultMessage())).collect(Collectors.joining(","));
 
         CustomErrorResponse err = new CustomErrorResponse(LocalDateTime.now(), msg, request.getDescription(false));
+        return new ResponseEntity<>(err, HttpStatus.BAD_REQUEST);
+    }
+
+    @Override
+    protected ResponseEntity<Object> handleNoResourceFoundException(NoResourceFoundException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
+        //false --> obtenemos el error de manera abreviada.
+        CustomErrorResponse err = new CustomErrorResponse(LocalDateTime.now(), ex.getMessage(), request.getDescription(false));
+        return new ResponseEntity<>(err, HttpStatus.NOT_FOUND);
+    }
+
+    @Override
+    protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
+        CustomErrorResponse err = new CustomErrorResponse(LocalDateTime.now(), ex.getMessage(), request.getDescription(false));
         return new ResponseEntity<>(err, HttpStatus.BAD_REQUEST);
     }
 

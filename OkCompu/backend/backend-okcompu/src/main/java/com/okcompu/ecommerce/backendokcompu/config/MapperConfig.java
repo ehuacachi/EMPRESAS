@@ -14,7 +14,7 @@ public class MapperConfig {
         return new ModelMapper();
     }
 
-    @Bean("empleadoMapper") // Se crear este metodo dado el o sus atributos del DTO no es igual a la Entidad
+    @Bean("empleadoMapper") // Se crea este metodo dado el o sus atributos del DTO no es igual a la Entidad
     public ModelMapper empleadoMapper(){
         ModelMapper modelMapper = new ModelMapper();
 
