@@ -18,7 +18,7 @@ export class MonedaService extends GenericService<Moneda>{
   private monedaChange: Subject<Moneda[]> = new Subject<Moneda[]>;
   private messageChange: Subject<string> = new Subject<string>;
 
-  constructor(http: HttpClient) {
+  constructor(protected override http: HttpClient) {
     super(http, `${environment.HOST}/monedas`)
   }
 
