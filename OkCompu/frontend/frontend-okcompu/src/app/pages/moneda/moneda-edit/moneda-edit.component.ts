@@ -50,18 +50,15 @@ export class MonedaEditComponent implements OnInit{
       this.monedaService.findBydId(this.id).subscribe(data => {
         this.form = new FormGroup({
           idMoneda: new FormControl(data.idMoneda),
-          descripcion: new FormControl(data.descripcion),
-          abreviatura: new FormControl(data.abreviatura),
-          estado: new FormControl(data.estado)
+          descripcion: new FormControl(data.descripcion, [Validators.required, Validators.minLength(5), Validators.maxLength(20)]),
+          abreviatura: new FormControl(data.abreviatura, [Validators.required, Validators.minLength(2), Validators.maxLength(5)]),
+          estado: new FormControl(data.estado, [Validators.required, Validators.maxLength(1)])
         });
       });
     }
   }
 
-  // get f(){
-  //   return this.form.controls;
-  // }
-
+  
   operate(){
     const moneda: Moneda = new Moneda();
     moneda.idMoneda = this.form.value['idMoneda'];
@@ -95,6 +92,10 @@ export class MonedaEditComponent implements OnInit{
 
     this.router.navigate(['pages/moneda']);
   };
+
+  get f(){
+    return this.form.controls;
+  }
 
 }
 

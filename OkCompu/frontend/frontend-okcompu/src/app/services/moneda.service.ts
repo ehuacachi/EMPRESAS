@@ -3,13 +3,15 @@ import { Injectable } from '@angular/core';
 import { Moneda } from '../model/moneda';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
+//En automatico Angular se cambia a de produccion
+import { environment } from '../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MonedaService {
 
-  private url: string = `http://localhost:8085/monedas`;
+  private url: string = `${environment.HOST}/monedas`;
 
   // Para enviar informacion a otro componente.
   private monedaChange: Subject<Moneda[]> = new Subject<Moneda[]>;

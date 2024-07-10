@@ -1,15 +1,14 @@
 import { Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
-import { MonedaComponent } from './pages/moneda/moneda.component';
-import { MonedaEditComponent } from './pages/moneda/moneda-edit/moneda-edit.component';
+import { LayoutComponent } from './pages/layout/layout.component';
+
 
 export const routes: Routes = [
-    // {path: '', redirectTo: 'login', pathMatch: 'full'},
-    // {path: 'login', component: LoginComponent},
-    { path: 'pages/moneda', component: MonedaComponent, children: [
-        { path: 'new', component: MonedaEditComponent },
-        { path: 'edit/:id', component: MonedaEditComponent }
-    ]
-    },
+    {path: '', redirectTo: 'login', pathMatch: 'full'},
+    {path: 'login', component: LoginComponent},
+    {path: 'pages',
+        component: LayoutComponent,
+        loadChildren: () => import('./pages/page.routes').then(x => x.pageRoutes)
+    }
     
 ];
