@@ -1,0 +1,30 @@
+<mat-dialog-content>
+    <mat-toolbar>
+        <span>Información de Marca</span>
+    </mat-toolbar>
+
+
+    <div class="example-container">
+        <mat-form-field>
+            <input matInput placeholder="Descripcion" [(ngModel)]="marca.descripcion">
+        </mat-form-field>
+        
+        <mat-form-field>
+            <input matInput placeholder="Estado" [(ngModel)]="marca.estado">
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput placeholder="Foto" [(ngModel)]="marca.foto">
+        </mat-form-field>
+
+        @if (marca.foto) {
+            <img mat-card-image [src]="marca.foto" alt="Foto de marca">
+        }
+    </div>
+
+    <mat-grid-list cols="2" rowHeight="2:1">
+        <mat-grid-tile> <button mat-button color="primary" (click)="operate()">Done</button> </mat-grid-tile>
+        <mat-grid-tile> <button mat-button color="accent" (click)="close()">Cancel</button> </mat-grid-tile>
+    </mat-grid-list>
+
+</mat-dialog-content>

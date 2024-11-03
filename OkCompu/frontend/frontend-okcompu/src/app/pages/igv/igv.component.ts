@@ -1,28 +1,29 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Marca } from '../../model/marca';
+import { Component, ViewChild } from '@angular/core';
+import { MaterialModule } from '../../material/material.module';
 import { MatTableDataSource } from '@angular/material/table';
-import { MarcaService } from '../../services/marca.service';
+import { Igv } from '../../model/igv';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
-import { MaterialModule } from '../../material/material.module';
-import { MarcaDialogComponent } from './marca-dialog/marca-dialog.component';
+import { IgvService } from '../../services/igv.service';
 import { MatDialog } from '@angular/material/dialog';
+import { IgvDialogComponent } from './igv-dialog/igv-dialog.component';
 
 @Component({
-  selector: 'app-marca',
+  selector: 'app-igv',
   standalone: true,
   imports: [MaterialModule],
-  templateUrl: './marca.component.html',
-  styleUrl: './marca.component.css'
+  templateUrl: './igv.component.html',
+  styleUrl: './igv.component.css'
 })
-export class MarcaComponent implements OnInit{
+export class IgvComponent {
 
-  dataSource: MatTableDataSource<Marca>;
+  dataSource: MatTableDataSource<Igv>;
   
   columnDefinitions = [
-    { def: 'idMarca', label: 'ID', hide: true},
-    { def: 'descripcion', label: 'Descripcion', hide: false},
-    { def: 'foto', label: 'Abreviatura', hide: false},
+    { def: 'idIgv', label: 'ID', hide: true},
+    { def: 'actividad', label: 'Actividad', hide: false},
+    { def: 'valor', label: 'Valor', hide: false},    
+    { def: 'igvFecha', label: 'Fecha', hide: false},
     { def: 'estado', label: 'Estado', hide: false},
     { def: 'acccion', label: 'Acccion', hide: false}
   ]
@@ -32,18 +33,18 @@ export class MarcaComponent implements OnInit{
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
-    private marcaService: MarcaService,
+    private igvService: IgvService,
     private _dialog: MatDialog
     
   ){}
 
   ngOnInit(): void {
-    this.marcaService.findAll().subscribe(data => {
+    this.igvService.findAll().subscribe(data => {
       this.createTable(data);
     })      
   }
 
-  createTable(data: Marca[]){
+  createTable(data: Igv[]){
     this.dataSource = new MatTableDataSource(data);
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
@@ -58,14 +59,13 @@ export class MarcaComponent implements OnInit{
   }
 
   // El Singon ? : Valor opcional, este valor siempre debe ir al ultimo.
-  openDialog(marca?: Marca){    
-    this._dialog.open(MarcaDialogComponent, {
+  openDialog(igv?: Igv){    
+    this._dialog.open(IgvDialogComponent, {
       width: '350px',
-      data: marca,      
+      data: igv,      
       //TRUE: para NO cerrar con la tacla ESC
       disableClose: false,
     })
   }
-
 
 }

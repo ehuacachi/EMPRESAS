@@ -1,28 +1,27 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Marca } from '../../model/marca';
+import { Component, ViewChild } from '@angular/core';
+import { MaterialModule } from '../../material/material.module';
+import { Categoria } from '../../model/categoria';
 import { MatTableDataSource } from '@angular/material/table';
-import { MarcaService } from '../../services/marca.service';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
-import { MaterialModule } from '../../material/material.module';
-import { MarcaDialogComponent } from './marca-dialog/marca-dialog.component';
+import { CategoriaService } from '../../services/categoria.service';
 import { MatDialog } from '@angular/material/dialog';
+import { CategoriaDialogComponent } from './categoria-dialog/categoria-dialog.component';
 
 @Component({
-  selector: 'app-marca',
+  selector: 'app-categoria',
   standalone: true,
   imports: [MaterialModule],
-  templateUrl: './marca.component.html',
-  styleUrl: './marca.component.css'
+  templateUrl: './categoria.component.html',
+  styleUrl: './categoria.component.css'
 })
-export class MarcaComponent implements OnInit{
+export class CategoriaComponent {
 
-  dataSource: MatTableDataSource<Marca>;
+  dataSource: MatTableDataSource<Categoria>;
   
   columnDefinitions = [
-    { def: 'idMarca', label: 'ID', hide: true},
-    { def: 'descripcion', label: 'Descripcion', hide: false},
-    { def: 'foto', label: 'Abreviatura', hide: false},
+    { def: 'idCategoria', label: 'ID', hide: true},
+    { def: 'descripcion', label: 'Descripcion', hide: false},    
     { def: 'estado', label: 'Estado', hide: false},
     { def: 'acccion', label: 'Acccion', hide: false}
   ]
@@ -32,18 +31,17 @@ export class MarcaComponent implements OnInit{
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
-    private marcaService: MarcaService,
-    private _dialog: MatDialog
-    
+    private categoriaService: CategoriaService,
+    private _dialog: MatDialog    
   ){}
 
   ngOnInit(): void {
-    this.marcaService.findAll().subscribe(data => {
+    this.categoriaService.findAll().subscribe(data => {
       this.createTable(data);
     })      
   }
 
-  createTable(data: Marca[]){
+  createTable(data: Categoria[]){
     this.dataSource = new MatTableDataSource(data);
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
@@ -58,10 +56,10 @@ export class MarcaComponent implements OnInit{
   }
 
   // El Singon ? : Valor opcional, este valor siempre debe ir al ultimo.
-  openDialog(marca?: Marca){    
-    this._dialog.open(MarcaDialogComponent, {
+  openDialog(categoria?: Categoria){    
+    this._dialog.open(CategoriaDialogComponent, {
       width: '350px',
-      data: marca,      
+      data: categoria,      
       //TRUE: para NO cerrar con la tacla ESC
       disableClose: false,
     })
@@ -69,3 +67,4 @@ export class MarcaComponent implements OnInit{
 
 
 }
+
