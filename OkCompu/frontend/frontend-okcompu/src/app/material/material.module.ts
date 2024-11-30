@@ -13,6 +13,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatGridListModule} from '@angular/material/grid-list';
+import { MatSortModule } from '@angular/material/sort';
+
 
 @NgModule({
   declarations: [],
@@ -32,7 +34,8 @@ import {MatGridListModule} from '@angular/material/grid-list';
     MatPaginatorModule,
     MatSnackBarModule,
     MatDialogModule,
-    MatGridListModule
+    MatGridListModule,
+    MatSortModule
   ]
 })
 export class MaterialModule { }
