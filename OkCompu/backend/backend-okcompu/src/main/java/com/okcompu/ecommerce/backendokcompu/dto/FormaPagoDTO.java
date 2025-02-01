@@ -16,7 +16,7 @@ public class FormaPagoDTO {
     @EqualsAndHashCode.Include
     private Long idFormaPago;
     @NotNull
-    @Size(min = 3, max = 10)
+    @Size(min = 3, max = 15)
     private String nombre;
 
     private Byte estado;

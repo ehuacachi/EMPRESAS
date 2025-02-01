@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { Categoria } from '../../../model/categoria';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MarcaDialogComponent } from '../../marca/marca-dialog/marca-dialog.component';
+import { CategoriaService } from '../../../services/categoria.service';
+import { switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-categoria-dialog',
@@ -19,7 +21,8 @@ export class CategoriaDialogComponent implements OnInit {
   constructor(    
     @Inject(MAT_DIALOG_DATA) private data: Categoria,
     //Para obtener las propierdades del Dialog
-    private _dialogRef: MatDialogRef<MarcaDialogComponent>
+    private _dialogRef: MatDialogRef<MarcaDialogComponent>,
+    private categoriaService: CategoriaService
   ){}
 
   ngOnInit(): void {
@@ -28,6 +31,25 @@ export class CategoriaDialogComponent implements OnInit {
   }
 
   operate(){
+    if (this.categoria != null && this.categoria.idCategoria > 0 ){
+      //UPDATE
+      this.categoriaService.update(this.categoria.idCategoria, this.categoria)
+      .pipe(switchMap(() => this.categoriaService.findAll() ))
+      .subscribe(data => {
+        this.categoriaService.setCategoriaChange(data);
+        this.categoriaService.setMessageChange("UPDATE!");
+      });
+
+    } else {
+      //INSERT
+      this.categoriaService.save(this.categoria)
+      .pipe(switchMap(() => this.categoriaService.findAll() ))
+      .subscribe(data => {
+        this.categoriaService.setCategoriaChange(data);
+        this.categoriaService.setMessageChange("CREATED!");
+      });      
+    }
+    this.close();
 
   }
 

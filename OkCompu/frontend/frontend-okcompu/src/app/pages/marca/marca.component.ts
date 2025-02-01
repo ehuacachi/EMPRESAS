@@ -7,6 +7,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MaterialModule } from '../../material/material.module';
 import { MarcaDialogComponent } from './marca-dialog/marca-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-marca',
@@ -33,14 +35,23 @@ export class MarcaComponent implements OnInit{
 
   constructor(
     private marcaService: MarcaService,
-    private _dialog: MatDialog
+    private _dialog: MatDialog,
+    private _snackBar: MatSnackBar
     
   ){}
 
   ngOnInit(): void {
     this.marcaService.findAll().subscribe(data => {
       this.createTable(data);
-    })      
+    });
+    
+    this.marcaService.getMarcaChange().subscribe(data => {
+      this.createTable(data);
+    });
+
+    this.marcaService.getMessageChange().subscribe(data => {
+      this._snackBar.open(data, 'INFO', {duration: 2000, horizontalPosition: 'right', verticalPosition: 'top'});
+    });
   }
 
   createTable(data: Marca[]){
@@ -65,6 +76,15 @@ export class MarcaComponent implements OnInit{
       //TRUE: para NO cerrar con la tacla ESC
       disableClose: false,
     })
+  }
+
+  delete(idMarca: number){
+    this.marcaService.delete(idMarca)
+    .pipe(switchMap(() => this.marcaService.findAll() ))
+    .subscribe(data => {
+      this.marcaService.setMarcaChange(data);
+      this.marcaService.setMessageChange("DELETED!");
+    });
   }
 
 

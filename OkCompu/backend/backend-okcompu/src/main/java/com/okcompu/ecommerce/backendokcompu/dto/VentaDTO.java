@@ -42,6 +42,8 @@ public class VentaDTO {
 
     private IgvDTO igv;
 
+    private String estado;
+
     @JsonManagedReference
     private List<DetalleVentaDTO> detalleVentas;
 }

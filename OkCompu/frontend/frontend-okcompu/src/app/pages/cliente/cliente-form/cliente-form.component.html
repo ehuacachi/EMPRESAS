@@ -1,0 +1,112 @@
+<form [formGroup]="clienteForm" (ngSubmit)="guardarCliente()" class="cliente-form">  
+  <div class="form-grid">  
+    <mat-form-field appearance="outline">  
+      <mat-label>Nombres</mat-label>  
+      <input matInput formControlName="nombres" type="text">  
+      @if (f['nombres'].errors?.['required'] && f['nombres'].touched) {  
+        <small class="error">Es requerido</small>  
+      }  
+    </mat-form-field>  
+    
+    <mat-form-field appearance="outline">  
+      <mat-label>Apellidos</mat-label>  
+      <input matInput formControlName="apellidos" type="text">  
+      @if (f['apellidos'].errors?.['required'] && f['apellidos'].touched) {  
+        <small class="error">Es requerido</small>  
+      }  
+    </mat-form-field>  
+    
+    <mat-form-field appearance="outline">  
+      <mat-label>Tipo Documento</mat-label>  
+      <mat-select formControlName="tipoDocumento">  
+        @for (tipo of tiposDocumento; track tipo) {  
+          <mat-option [value]="tipo.idTipoDocumento">  
+            {{tipo.abreviatura}}  
+          </mat-option>  
+        }  
+      </mat-select>  
+    </mat-form-field>  
+    
+    <mat-form-field appearance="outline">  
+      <mat-label>Número Documento</mat-label>  
+      <input matInput formControlName="nroDocumento" type="text">  
+    </mat-form-field>  
+    
+    <mat-form-field appearance="outline" class="full-width">  
+      <mat-label>Email</mat-label>  
+      <input matInput formControlName="email" type="email">  
+    </mat-form-field>  
+  </div>  
+
+  <!-- Sección de Teléfonos -->  
+  <div class="section-container">  
+    <h3>Teléfonos</h3>  
+    <div formArrayName="telefonos">  
+      @for (telefono of telefonosArray.controls; track $index) {  
+        <div [formGroupName]="$index" class="telefono-item">  
+          <mat-form-field appearance="outline">  
+            <mat-label>Número</mat-label>  
+            <input matInput formControlName="numero" type="text">  
+          </mat-form-field>  
+          <button mat-icon-button color="warn" type="button" (click)="eliminarTelefono($index)">  
+            <mat-icon>delete</mat-icon>  
+          </button>  
+        </div>  
+      }  
+    </div>  
+    <button mat-raised-button color="primary" type="button" (click)="agregarTelefono()">  
+      Agregar Teléfono  
+    </button>  
+  </div>  
+
+  <!-- Sección de Domicilios -->  
+  <div class="section-container">  
+    <h3>Domicilios</h3>  
+    <div formArrayName="domicilios">  
+      @for (domicilio of domiciliosArray.controls; track $index) {  
+        <div [formGroupName]="$index" class="domicilio-item">  
+          <mat-form-field appearance="outline">  
+            <mat-label>Dirección</mat-label>  
+            <input matInput formControlName="direccion" type="text">  
+          </mat-form-field>  
+          
+          <mat-form-field appearance="outline">  
+            <mat-label>Número</mat-label>  
+            <input matInput formControlName="numero" type="text">  
+          </mat-form-field>  
+          
+          <mat-form-field appearance="outline">  
+            <mat-label>Manzana</mat-label>  
+            <input matInput formControlName="manzana" type="text">  
+          </mat-form-field>  
+          
+          <mat-form-field appearance="outline">  
+            <mat-label>Lote</mat-label>  
+            <input matInput formControlName="lote" type="text">  
+          </mat-form-field>  
+          
+          <mat-form-field appearance="outline">  
+            <mat-label>Referencia</mat-label>  
+            <input matInput formControlName="referencia" type="text">  
+          </mat-form-field>  
+          
+          <button mat-icon-button color="warn" type="button" (click)="eliminarDomicilio($index)">  
+            <mat-icon>delete</mat-icon>  
+          </button>  
+        </div>  
+      }  
+    </div>  
+    <button mat-raised-button color="primary" type="button" (click)="agregarDomicilio()">  
+      Agregar Domicilio  
+    </button>  
+  </div>  
+  
+  <div class="actions">  
+    <button mat-raised-button color="primary" type="submit">  
+      Guardar  
+    </button>  
+    <button mat-raised-button color="accent" type="button" (click)="resetFormulario()">  
+      Cancelar  
+    </button>  
+  </div>  
+</form>

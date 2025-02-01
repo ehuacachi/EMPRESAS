@@ -38,6 +38,32 @@ public class ResponseExceptionHandler extends ResponseEntityExceptionHandler { /
         return new ResponseEntity<>(err, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(StockInsuficienteException.class)
+    public ResponseEntity<CustomErrorResponse> handleStockInsuficienteException(
+            ModelNotFoundException ex,
+            WebRequest request
+    ) {
+        CustomErrorResponse err = new CustomErrorResponse(
+                LocalDateTime.now(),
+                ex.getMessage(),
+                request.getDescription(false)
+        );
+        return new ResponseEntity<>(err, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(VentaInvalidaException.class)
+    public ResponseEntity<CustomErrorResponse> handleVentaInvalidaException(
+            VentaInvalidaException ex,
+            WebRequest request
+    ) {
+        CustomErrorResponse err = new CustomErrorResponse(
+                LocalDateTime.now(),
+                ex.getMessage(),
+                request.getDescription(false)
+        );
+        return new ResponseEntity<>(err, HttpStatus.BAD_REQUEST);
+    }
+
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
         String msg = ex.getBindingResult().getFieldErrors()

@@ -1,0 +1,176 @@
+@if (form()) {  
+  <div class="venta-container">  
+    <div class="venta-header">  
+      <h1>Registro de Venta</h1>  
+      <div class="venta-header-actions">  
+        <button   
+          type="button"   
+          class="btn btn-secondary"  
+          (click)="resetForm()"  
+        >  
+          <i class="icon-refresh"></i> Nuevo  
+        </button>  
+        <button   
+          type="button"   
+          class="btn btn-primary"  
+          (click)="onSubmit()"  
+          [disabled]="isLoading()"  
+        >  
+          @if (isLoading()) {  
+            Guardando...  
+          } @else {  
+            Guardar  
+          }  
+        </button>  
+      </div>  
+    </div>  
+  
+    <form [formGroup]="form()" class="venta-form">  
+      <div class="form-section">  
+        <div class="form-row">  
+          <div class="form-group">  
+            <label for="fecha">Fecha</label>  
+            <input   
+              type="date"   
+              id="fecha"   
+              formControlName="fecha"   
+              class="form-control"   
+              required  
+            >  
+          </div>  
+          <div class="form-group">  
+            <label for="empleado">Empleado</label>  
+            <select   
+              id="empleado"   
+              formControlName="empleado"   
+              class="form-control"   
+              required  
+            >  
+              <option value="">Seleccionar Empleado</option>  
+              <!-- @for (empleado of empleados(); track empleado.id) {  
+                <option [value]="empleado.id">  
+                  {{ empleado.nombres }} {{ empleado.apellidos }}  
+                </option>  
+              }   -->
+            </select>  
+          </div>  
+          <div class="form-group">  
+            <label for="almacen">Almacén</label>  
+            <select   
+              id="almacen"   
+              formControlName="almacen"   
+              class="form-control"   
+              required  
+            >  
+              <option value="">Seleccionar Almacén</option>  
+              @for (almacen of almacenes(); track almacen.idAlmacen) {  
+                <option [value]="almacen.idAlmacen">  
+                  {{ almacen.descripcion }}  
+                </option>  
+              }  
+            </select>  
+          </div>  
+        </div>  
+  
+        <!-- Resto de los campos de formulario similares -->  
+  
+        <div class="producto-section">  
+          <div class="producto-search">  
+            <label for="producto">Agregar Producto</label>  
+            <div class="input-group">  
+              <input   
+                type="text"   
+                id="producto"   
+                formControlName="productoSearch"   
+                class="form-control"   
+                placeholder="Buscar producto"  
+              >  
+              <button   
+                type="button"   
+                class="btn btn-primary input-group-btn"  
+                (click)="onProductoSelected(form().get('productoSearch').value)"  
+              >  
+                <i class="icon-plus"></i> Agregar  
+              </button>  
+            </div>  
+          </div>  
+  
+          <div class="table-responsive">  
+            <table class="table">  
+              <thead>  
+                <tr>  
+                  <th>Producto</th>  
+                  <th>Cantidad</th>  
+                  <th>Precio Unitario</th>  
+                  <th>Subtotal</th>  
+                  <th>Acciones</th>  
+                </tr>  
+              </thead>  
+              <tbody>  
+                @for (detalle of detalles()?.controls || []; track $index) {  
+                  <tr>  
+                    <td>{{ detalle.get('producto')?.value?.descripcion }}</td>  
+                    <td>  
+                      <input  
+                        type="number"  
+                        [formControl]="getFormControl($index, 'cantidad')"  
+                        class="form-control text-center"  
+                        min="1"  
+                      >  
+                    </td>  
+                    <td>{{ detalle.get('precio')?.value | currency }}</td>  
+                    <td>{{ detalle.get('subtotal')?.value | currency }}</td>  
+                    <td>  
+                      <button  
+                        class="btn btn-danger btn-sm"  
+                        (click)="eliminarDetalle($index)"  
+                      >  
+                        <i class="icon-trash"></i>  
+                      </button>  
+                    </td>  
+                  </tr>  
+                }  
+              </tbody> 
+              
+            </table>  
+          </div>  
+        </div>  
+  
+        <div class="venta-summary">  
+          <div class="summary-totals">  
+            <div class="total-row">  
+              <span>Subtotal:</span>  
+              <span>{{ totalVenta() | currency }}</span>  
+            </div>  
+            <div class="total-row">  
+              <span>IGV (18%):</span>  
+              <span>{{ (totalVenta() * 0.18) | currency }}</span>  
+            </div>  
+            <div class="total-row total-final">  
+              <span>Total:</span>  
+              <span>{{ (totalVenta() * 1.18) | currency }}</span>  
+            </div>  
+          </div>  
+        </div>  
+  
+        <div class="form-actions">  
+          <button   
+            type="button"   
+            class="btn btn-secondary"  
+            (click)="resetForm()"  
+          >  
+            Cancelar  
+          </button>  
+          <button   
+            type="button"   
+            class="btn btn-primary"  
+            (click)="onSubmit()"  
+            [disabled]="isLoading()"  
+          >  
+            Guardar Venta  
+          </button>  
+        </div>  
+      </div>  
+    </form>  
+  </div>  
+  }

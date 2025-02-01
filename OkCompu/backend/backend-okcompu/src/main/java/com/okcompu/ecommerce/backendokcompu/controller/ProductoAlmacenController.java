@@ -6,6 +6,7 @@ import com.okcompu.ecommerce.backendokcompu.dto.ProductoDTO;
 import com.okcompu.ecommerce.backendokcompu.model.Almacen;
 import com.okcompu.ecommerce.backendokcompu.model.Producto;
 import com.okcompu.ecommerce.backendokcompu.model.ProductoAlmacen;
+import com.okcompu.ecommerce.backendokcompu.model.ProductoAlmacenPK;
 import com.okcompu.ecommerce.backendokcompu.service.ProductoAlmacenService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -71,18 +72,36 @@ public class ProductoAlmacenController {
 
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<ProductoAlmacenDTO> update(@PathVariable Long id,@Valid @RequestBody ProductoAlmacenDTO dto) {
-//        ProductoAlmacen obj = productoAlmacenService.update(id,convertEntity(dto));
-//        return  ResponseEntity.ok(converDTO(obj));
-        return null;
+    @PutMapping("/producto/{idProducto}/almacen/{idAlmacen}")
+    public ResponseEntity<ProductoAlmacenDTO> update(
+            @PathVariable Long idProducto,
+            @PathVariable Long idAlmacen,
+            @Valid @RequestBody ProductoAlmacenDTO dto) {
+
+        ProductoAlmacenPK id = new ProductoAlmacenPK();
+        id.setProducto(new Producto());
+        id.getProducto().setIdProducto(idProducto);
+        id.setAlmacen(new Almacen());
+        id.getAlmacen().setIdAlmacen(idAlmacen);
+
+        ProductoAlmacen obj = productoAlmacenService.update(id, convertEntity(dto));
+        return ResponseEntity.ok(converDTO(obj));
     }
 
-    @DeleteMapping("{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id){
-//        productoAlmacenService.delete(id);
-//        return ResponseEntity.noContent().build();
-        return null;
+    @PutMapping("/stock/producto/{idProducto}/almacen/{idAlmacen}")
+    public ResponseEntity<ProductoAlmacenDTO> updateStock(
+            @PathVariable Long idProducto,
+            @PathVariable Long idAlmacen,
+            @RequestParam Integer cantidad) {
+
+        ProductoAlmacen obj = productoAlmacenService.updateStock(idProducto, idAlmacen, cantidad);
+        return ResponseEntity.ok(converDTO(obj));
+    }
+
+    @DeleteMapping("/producto/{idProducto}/almacen/{idAlmacen}")
+    public ResponseEntity<Void> delete(@PathVariable Long idProducto, @PathVariable Long idAlmacen) {
+        productoAlmacenService.deleteByProductoAndAlmacen(idProducto, idAlmacen);
+        return ResponseEntity.noContent().build();
     }
 
     private ProductoAlmacen convertEntity(ProductoAlmacenDTO dto) {

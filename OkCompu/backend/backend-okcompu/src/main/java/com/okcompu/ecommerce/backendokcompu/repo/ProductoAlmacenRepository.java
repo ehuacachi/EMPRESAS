@@ -15,6 +15,8 @@ public interface ProductoAlmacenRepository extends GenericRepo<ProductoAlmacen, 
     ProductoAlmacen findByProductoAndAlmacen(Producto producto, Almacen almacen);
     List<ProductoAlmacen> findByProducto(Producto producto);
     List<ProductoAlmacen> findByAlmacen(Almacen almacen);
+    void deleteByProductoAndAlmacen(Producto producto, Almacen almacen);
+    boolean existsByProductoAndAlmacen(Producto producto, Almacen almacen);
 
 
 

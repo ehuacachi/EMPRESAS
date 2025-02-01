@@ -30,7 +30,7 @@ public abstract class CRUDImpl<T, ID> implements CRUD<T, ID> {
 
     @Override
     public T findById(ID id) {
-        // supllier: Es una expresion lamba sin parametros de ingreso, pero devuelve algo.
+        // su*pllier: Es una expresion lamba sin parametros de ingreso, pero devuelve algo.
         getRepo().findById(id).orElseThrow(() -> new ModelNotFoundException("ID NOT FOUND: " + id));
         return getRepo().findById(id).orElse(null);
     }

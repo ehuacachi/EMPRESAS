@@ -1,0 +1,50 @@
+/* components/almacen/almacen.component.css */  
+
+.container {  
+  width: 100%;  
+  max-width: 1400px;  
+  margin: 0 auto;  
+  padding: 2rem;  
+  min-height: 100vh;  
+  background-color: #f8f9fa;  
+  display: flex;  
+  flex-direction: column;  
+  gap: 2rem;  
+}  
+
+/* Estilos para el contenedor cuando está en modo de carga */  
+.container.loading {  
+  position: relative;  
+  opacity: 0.7;  
+  pointer-events: none;  
+}  
+
+/* table {
+  width: 100%;
+} */
+
+.mat-mdc-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+td, th {
+  width: 25%;
+}
+
+.action-cell {  
+  padding: 0;  
+}  
+
+.action-buttons {  
+  display: flex;  
+  align-items: center;  
+  justify-content: center;  
+  gap: 0; /* Elimina el espacio entre botones */  
+}  
+
+.action-buttons .mat-icon-button {  
+  width: 40px; /* Ajusta el ancho de los botones */  
+  height: 40px; /* Ajusta la altura de los botones */  
+  padding: 0; /* Elimina el padding interno */  
+}  

@@ -61,4 +61,6 @@ public class Venta { //extends Base
 
     @OneToMany(mappedBy = "venta", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<DetalleVenta> detalleVentas;
+
+    private String estado;
 }

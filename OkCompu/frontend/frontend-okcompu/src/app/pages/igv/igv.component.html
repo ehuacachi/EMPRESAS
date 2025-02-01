@@ -39,7 +39,7 @@
         <ng-container matColumnDef="acccion">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Accion </th>
             <td mat-cell *matCellDef="let row">
-                <button mat-button color="primary" (click)="openDialog(this.row)">
+                <button mat-button color="primary" (click)="openDialog(row)">
                     <mat-icon>mode_edit</mat-icon>
                 </button>
 

@@ -10,6 +10,7 @@ import { switchMap } from 'rxjs';
 @Component({
   selector: 'app-moneda-edit',
   standalone: true,
+  //ReactiveFormsModule: Para trabajar con formulario
   imports: [MaterialModule, ReactiveFormsModule, RouterLink],
   templateUrl: './moneda-edit.component.html',
   styleUrl: './moneda-edit.component.css'
@@ -17,9 +18,9 @@ import { switchMap } from 'rxjs';
 export class MonedaEditComponent implements OnInit{ 
 
   constructor(
-    private route: ActivatedRoute,
+    private route: ActivatedRoute, //recibir parametros
     private monedaService: MonedaService,
-    private router: Router
+    private router: Router //para navegar.
   ){}
   // //private route = inject(ActivatedRoute);
   
@@ -81,7 +82,7 @@ export class MonedaEditComponent implements OnInit{
     }else{
       //INSERT
       //PRACTICA IDEAL
-      //pipe, se utiliza antes de suscribirse
+      //pipe, se utiliza sobre un Observable, para controlar el Observable y trabajar con ello.
       this.monedaService.save(moneda)
       .pipe(switchMap(  ()=> this.monedaService.findAll()  ))
       .subscribe(data => {

@@ -1,0 +1,117 @@
+<!-- components/almacen/almacen-form/almacen-form.component.html -->  
+<div class="form-container mat-elevation-z8">  
+    <h2>{{ isEditing ? 'Editar' : 'Nuevo' }} Almacén</h2>  
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">  
+        <div class="form-grid">  
+            <!-- Descripción -->  
+            <mat-form-field appearance="outline">  
+                <mat-label>Descripción</mat-label>  
+                <input matInput formControlName="descripcion" placeholder="Ingrese la descripción">  
+                @if (form.get('descripcion')?.hasError('required') && form.get('descripcion')?.touched) {  
+                    <mat-error>La descripción es requerida</mat-error>  
+                }  
+            </mat-form-field>  
+
+            <!-- Teléfonos -->  
+            <div class="section-container">  
+                <div class="section-header">  
+                    <h3>Teléfonos</h3>  
+                    <button type="button" mat-mini-fab color="primary" (click)="addTelefono()">  
+                        <mat-icon>add</mat-icon>  
+                    </button>  
+                </div>  
+
+                <div formArrayName="telefonos" class="array-container">  
+                    @for (telefono of telefonos.controls; track $index) {  
+                        <div [formGroupName]="$index" class="array-item">  
+                            <mat-form-field appearance="outline">  
+                                <mat-label>Número</mat-label>  
+                                <input matInput formControlName="numero" placeholder="Ingrese el número">  
+                                @if (telefono.get('numero')?.hasError('required') && telefono.get('numero')?.touched) {  
+                                    <mat-error>El número es requerido</mat-error>  
+                                }  
+                            </mat-form-field>  
+                            <button type="button" mat-icon-button color="warn" (click)="removeTelefono($index)">  
+                                <mat-icon>delete</mat-icon>  
+                            </button>  
+                        </div>  
+                    }  
+                </div>  
+            </div>  
+
+            <!-- Domicilios -->  
+            <div class="section-container">  
+                <div class="section-header">  
+                    <h3>Domicilios</h3>  
+                    <button type="button" mat-mini-fab color="primary" (click)="addDomicilio()">  
+                        <mat-icon>add</mat-icon>  
+                    </button>  
+                </div>  
+
+                <div formArrayName="domicilios" class="array-container">  
+                    @for (domicilio of domicilios.controls; track $index) {  
+                        <div [formGroupName]="$index" class="domicilio-item">  
+                            <!-- Dirección -->  
+                            <mat-form-field appearance="outline">  
+                                <mat-label>Dirección</mat-label>  
+                                <input matInput formControlName="direccion" placeholder="Ingrese la dirección">  
+                                @if (domicilio.get('direccion')?.hasError('required') && domicilio.get('direccion')?.touched) {  
+                                    <mat-error>La dirección es requerida</mat-error>  
+                                }  
+                            </mat-form-field>  
+
+                            <!-- Número -->  
+                            <mat-form-field appearance="outline">  
+                                <mat-label>Número</mat-label>  
+                                <input matInput formControlName="numero" placeholder="Ingrese el número">  
+                                @if (domicilio.get('numero')?.hasError('required') && domicilio.get('numero')?.touched) {  
+                                    <mat-error>El número es requerido</mat-error>  
+                                }  
+                            </mat-form-field>  
+
+                            <!-- Manzana -->  
+                            <mat-form-field appearance="outline">  
+                                <mat-label>Manzana</mat-label>  
+                                <input matInput formControlName="manzana" placeholder="Ingrese la manzana">  
+                            </mat-form-field>  
+
+                            <!-- Lote -->  
+                            <mat-form-field appearance="outline">  
+                                <mat-label>Lote</mat-label>  
+                                <input matInput formControlName="lote" placeholder="Ingrese el lote">  
+                            </mat-form-field>  
+
+                            <!-- Referencia -->  
+                            <mat-form-field appearance="outline">  
+                                <mat-label>Referencia</mat-label>  
+                                <textarea matInput formControlName="referencia"   
+                                    placeholder="Ingrese una referencia"  
+                                    rows="2">  
+                                </textarea>  
+                            </mat-form-field>  
+
+                            <!-- Botón eliminar domicilio -->  
+                            <button type="button" mat-icon-button color="warn"   
+                                (click)="removeDomicilio($index)"  
+                                class="remove-button">  
+                                <mat-icon>delete</mat-icon>  
+                            </button>  
+                        </div>  
+                    }  
+                </div>  
+            </div>  
+        </div>  
+
+        <!-- Botones de acción -->  
+        <div class="form-actions">  
+            <button type="button" mat-stroked-button (click)="resetForm()">  
+                Cancelar  
+            </button>  
+            <button type="submit" mat-raised-button color="primary"   
+                [disabled]="!form.valid">  
+                {{ isEditing ? 'Actualizar' : 'Guardar' }}  
+            </button>  
+        </div>  
+    </form>  
+</div>

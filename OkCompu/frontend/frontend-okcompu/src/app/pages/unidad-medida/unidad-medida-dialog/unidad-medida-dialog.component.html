@@ -1,0 +1,27 @@
+<mat-dialog-content>
+    <mat-toolbar>
+        <span>Unidad de Medida</span>
+    </mat-toolbar>
+
+
+    <div class="example-container">
+        <mat-form-field>
+            <input matInput placeholder="Descripcion" [(ngModel)]="unidadMedida.descripcion">
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput placeholder="Abreviatura" [(ngModel)]="unidadMedida.abreviatura">
+        </mat-form-field>
+        
+        <mat-form-field>
+            <input matInput placeholder="Estado" [(ngModel)]="unidadMedida.estado">
+        </mat-form-field>
+   
+    </div>
+
+    <mat-grid-list cols="2" rowHeight="2:1">
+        <mat-grid-tile> <button mat-button color="primary" (click)="operate()">Done</button> </mat-grid-tile>
+        <mat-grid-tile> <button mat-button color="accent" (click)="close()">Cancel</button> </mat-grid-tile>
+    </mat-grid-list>
+
+</mat-dialog-content>

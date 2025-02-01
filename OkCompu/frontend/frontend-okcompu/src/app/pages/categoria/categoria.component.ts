@@ -7,6 +7,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { CategoriaService } from '../../services/categoria.service';
 import { MatDialog } from '@angular/material/dialog';
 import { CategoriaDialogComponent } from './categoria-dialog/categoria-dialog.component';
+import { switchMap } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-categoria',
@@ -32,13 +34,22 @@ export class CategoriaComponent {
 
   constructor(
     private categoriaService: CategoriaService,
-    private _dialog: MatDialog    
+    private _dialog: MatDialog,
+    private _snackBar: MatSnackBar
   ){}
 
   ngOnInit(): void {
     this.categoriaService.findAll().subscribe(data => {
       this.createTable(data);
-    })      
+    });
+    
+    this.categoriaService.getCategoriaChange().subscribe(data => {
+      this.createTable(data);
+    });
+
+    this.categoriaService.getMessageChange().subscribe(data => {
+      this._snackBar.open(data, 'INFO', {duration: 2000, horizontalPosition: 'right', verticalPosition: 'top'});
+    });
   }
 
   createTable(data: Categoria[]){
@@ -63,6 +74,15 @@ export class CategoriaComponent {
       //TRUE: para NO cerrar con la tacla ESC
       disableClose: false,
     })
+  }
+
+  delete(idCategoria: number){
+    this.categoriaService.delete(idCategoria)
+    .pipe(switchMap(() => this.categoriaService.findAll() ))
+    .subscribe(data => {
+      this.categoriaService.setCategoriaChange(data);
+      this.categoriaService.setMessageChange("DELETED!");
+    });
   }
 
 

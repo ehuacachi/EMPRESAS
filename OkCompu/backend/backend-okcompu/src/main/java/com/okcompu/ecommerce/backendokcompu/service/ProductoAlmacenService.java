@@ -12,5 +12,6 @@ public interface ProductoAlmacenService extends CRUD<ProductoAlmacen, ProductoAl
     ProductoAlmacen findByProductoAndAlmacen(Long idProducto, Long idAlmacen);
     List<ProductoAlmacen> findByProducto(Long idProducto);
     List<ProductoAlmacen> findByAlmacen(Long idAlmacen);
-
+    void deleteByProductoAndAlmacen(Long idProducto, Long idAlmacen);
+    ProductoAlmacen updateStock(Long idProducto, Long idAlmacen, Integer cantidad);
 }

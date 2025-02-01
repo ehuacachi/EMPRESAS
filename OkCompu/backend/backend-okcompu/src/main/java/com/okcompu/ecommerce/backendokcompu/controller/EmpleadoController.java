@@ -1,5 +1,6 @@
 package com.okcompu.ecommerce.backendokcompu.controller;
 
+import com.okcompu.ecommerce.backendokcompu.dto.CambioContrasenaDTO;
 import com.okcompu.ecommerce.backendokcompu.dto.EmpleadoDTO;
 import com.okcompu.ecommerce.backendokcompu.model.Empleado;
 import com.okcompu.ecommerce.backendokcompu.service.EmpleadoService;
@@ -35,17 +36,21 @@ public class EmpleadoController {
         List<EmpleadoDTO> dtos = mapperUtil.mapList(empleadoService.findAll(), EmpleadoDTO.class, "empleadoMapper");
         return ResponseEntity.ok(dtos);
     }
+
     @GetMapping("/page/{page}")
     public ResponseEntity<Page<EmpleadoDTO>> findAllPage(@PathVariable Integer page) {
 //        Page<EmpleadoDTO> dtos = empleadoService.findAll(PageRequest.of(page,4 )).map(this::converDTO);
         Page<EmpleadoDTO> dtos = empleadoService.findAll(PageRequest.of(page,4 )).map(e -> mapperUtil.map(e, EmpleadoDTO.class, "empleadoMapper"));
         return ResponseEntity.ok(dtos);
     }
+
     @GetMapping("/{id}")
     public ResponseEntity<EmpleadoDTO> findById(@PathVariable("id") Long id) {
         Empleado obj = empleadoService.findById(id);
         return ResponseEntity.ok(mapperUtil.map(obj, EmpleadoDTO.class, "empleadoMapper"));
     }
+
+
     @PostMapping
     public ResponseEntity<Void> save(@Valid @RequestBody EmpleadoDTO dto) {
         Empleado obj = empleadoService.create(mapperUtil.map(dto, Empleado.class, "empleadoMapper"));
@@ -64,6 +69,31 @@ public class EmpleadoController {
         empleadoService.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/username/{username}")
+    public ResponseEntity<EmpleadoDTO> buscarPorUsername(@PathVariable String username) {
+        Empleado empleado = empleadoService.buscarPorUsername(username);
+        return ResponseEntity.ok(mapperUtil.map(empleado, EmpleadoDTO.class, "empleadoMapper") );
+    }
+
+    @GetMapping("/email/{email}")
+    public ResponseEntity<EmpleadoDTO> buscarPorEmail(@PathVariable String email) {
+        Empleado empleado = empleadoService.buscarPorEmail(email);
+        return ResponseEntity.ok(mapperUtil.map(empleado, EmpleadoDTO.class, "empleadoMapper") );
+    }
+
+    @GetMapping("/buscar")
+    public ResponseEntity<List<EmpleadoDTO>> buscarPorNombreCompleto(@RequestParam String termino) {
+        List<Empleado> empleados = empleadoService.buscarPorNombreCompleto(termino);
+        return ResponseEntity.ok(mapperUtil.mapList(empleados, EmpleadoDTO.class, "empleadoMapper") );
+    }
+
+    @PatchMapping("/{id}/cambiar-contrasena")
+    public ResponseEntity<Void> cambiarContrasena(@PathVariable Long id, @RequestBody CambioContrasenaDTO cambioContrasena) {
+        empleadoService.cambiarContrasena(id, cambioContrasena.getNuevaContrasena());
+        return ResponseEntity.ok().build();
+    }
+
 
 //    private Empleado convertEntity(EmpleadoDTO dto) {
 //        return mapper.map(dto, Empleado.class);
